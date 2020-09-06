@@ -2,12 +2,10 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\ArtistType;
-use App\DataFixtures\TypeFixtures;
-use App\DataFixtures\ArtistFixtures;
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use App\Entity\ArtistType;
 
 class ArtistTypeFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -110,32 +108,30 @@ class ArtistTypeFixtures extends Fixture implements DependentFixtureInterface
                 'type'=>'comédien',
             ],
         ];
-        
-        foreach ($artistTypes as $record) {
-            //Récupérer l'artiste (entité principale)
-            $artist = $this->getReference(
-                $record['artist_firstname'].'-'.$record['artist_lastname']
-            );
-            
-            //Récupérer le type (entité secondaire)
+
+        foreach($artistTypes as $record) {
+            $artist = $this->getReference($record['artist_firstname'].'-'.$record['artist_lastname']);
             $type = $this->getReference($record['type']);
             
-            $at = new ArtistType();
-            $at->setArtist($artist);
-            $at->setType($type);
+            $artistType = new ArtistType();
+            $artistType->setArtist($artist);
+            $artistType->setType($type);
             
-            //Persister l'entité principale
-            $manager->persist($at);       
-         }
-
-
+            $this->addReference($record['artist_firstname']
+                    .'-'.$record['artist_lastname']
+                    .'-'.$record['type'],$artistType);
+            
+            $manager->persist($artistType); 
+        }
+        
         $manager->flush();
     }
-    
+
     public function getDependencies() {
         return [
             ArtistFixtures::class,
             TypeFixtures::class,
         ];
     }
+
 }
