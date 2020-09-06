@@ -2,8 +2,10 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\DataFixtures\TypeFixtures;
+use App\DataFixtures\ArtistFixtures;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class ArtistTypeFixtures extends Fixture implements DependentFixtureInterface
