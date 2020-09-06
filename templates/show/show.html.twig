@@ -34,4 +34,15 @@
         {% else %}
         <p>Aucune représentation</p>
         {% endif %}
+        <h2>Liste des artistes</h2>
+        <ul>
+            {% for collaborateur in show.artistTypes %}
+                <li>
+                    {{ collaborateur.artist.firstname }}
+                    {{ collaborateur.artist.lastname }}
+                    ({{ collaborateur.type.type }})
+                </li>              
+            {% endfor %}
+        </ul>
+
 {% endblock %}

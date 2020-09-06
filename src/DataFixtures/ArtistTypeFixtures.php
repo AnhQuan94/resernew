@@ -13,54 +13,54 @@ class ArtistTypeFixtures extends Fixture implements DependentFixtureInterface
     {
         $artistTypes = [
             [
-                'artist_firstname'=>'Daniel',
-                'artist_lastname'=>'Marcelin',
-                'type'=>'auteur',
+                'artist_firstname'=> 'Daniel',
+                'artist_lastname'=> 'Marcelin',
+                'type'=> 'auteur',
             ],
             [
-                'artist_firstname'=>'Philippe',
-                'artist_lastname'=>'Laurent',
-                'type'=>'auteur',
+                'artist_firstname'=> 'Philippe',
+                'artist_lastname'=> 'Laurent',
+                'type'=> 'auteur',
             ],
             [
-                'artist_firstname'=>'Daniel',
-                'artist_lastname'=>'Marcelin',
-                'type'=>'scénographe',
+                'artist_firstname'=> 'Daniel',
+                'artist_lastname'=> 'Marcelin',
+                'type'=> 'scénographe',
             ],
             [
-                'artist_firstname'=>'Philippe',
-                'artist_lastname'=>'Laurent',
-                'type'=>'scénographe',
+                'artist_firstname'=> 'Philippe',
+                'artist_lastname'=> 'Laurent',
+                'type'=> 'scénographe',
             ],
             [
-                'artist_firstname'=>'Daniel',
-                'artist_lastname'=>'Marcelin',
-                'type'=>'comédien',
+                'artist_firstname'=> 'Daniel',
+                'artist_lastname'=> 'Marcelin',
+                'type'=> 'comédien',
             ],
             [
-                'artist_firstname'=>'Marius',
-                'artist_lastname'=>'Von Mayenburg',
-                'type'=>'auteur',
+                'artist_firstname'=> 'Marius',
+                'artist_lastname'=> 'Von Mayenburg',
+                'type'=> 'auteur',
             ],
             [
-                'artist_firstname'=>'Olivier',
-                'artist_lastname'=>'Boudon',
-                'type'=>'scénographe',
+                'artist_firstname'=> 'Olivier',
+                'artist_lastname'=> 'Boudon',
+                'type'=> 'scénographe',
             ],
             [
-                'artist_firstname'=>'Anne Marie',
-                'artist_lastname'=>'Loop',
-                'type'=>'comédien',
+                'artist_firstname'=> 'Anne Marie',
+                'artist_lastname'=> 'Loop',
+                'type'=> 'comédien',
             ],
             [
-                'artist_firstname'=>'Pietro',
-                'artist_lastname'=>'Varasso',
-                'type'=>'comédien',
+                'artist_firstname'=> 'Pietro',
+                'artist_lastname'=> 'Varasso',
+                'type'=> 'comédien',
             ],
             [
-                'artist_firstname'=>'Laurent',
-                'artist_lastname'=>'Caron',
-                'type'=>'comédien',
+                'artist_firstname'=> 'Laurent',
+                'artist_lastname'=> 'Caron',
+                'type'=> 'comédien',
             ],
             [
                 'artist_firstname'=>'Élena',
@@ -109,21 +109,28 @@ class ArtistTypeFixtures extends Fixture implements DependentFixtureInterface
             ],
         ];
 
-        foreach($artistTypes as $record) {
-            $artist = $this->getReference($record['artist_firstname'].'-'.$record['artist_lastname']);
+        foreach ($artistTypes as $record) {
+            //recuperer l'artiste(main entity)
+           $artist = $this->getReference(
+               $record['artist_firstname']."-".$record['artist_lastname']
+            );
+
+            //recuperer le type(secondary entity)
             $type = $this->getReference($record['type']);
-            
-            $artistType = new ArtistType();
-            $artistType->setArtist($artist);
-            $artistType->setType($type);
-            
-            $this->addReference($record['artist_firstname']
-                    .'-'.$record['artist_lastname']
-                    .'-'.$record['type'],$artistType);
-            
-            $manager->persist($artistType); 
+
+            $at = new ArtistType();
+            $at->setArtist($artist);
+            $at->setType($type);
+
+            $manager->persist($at);
+
+            $this->addReference(
+                $record['artist_firstname']
+                .'-'.$record['artist_lastname']
+                .'-'.$record['type'], $at);
+
         }
-        
+
         $manager->flush();
     }
 
@@ -133,5 +140,4 @@ class ArtistTypeFixtures extends Fixture implements DependentFixtureInterface
             TypeFixtures::class,
         ];
     }
-
 }
