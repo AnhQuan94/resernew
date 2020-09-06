@@ -34,15 +34,28 @@
         {% else %}
         <p>Aucune représentation</p>
         {% endif %}
+        
         <h2>Liste des artistes</h2>
-        <ul>
-            {% for collaborateur in show.artistTypes %}
-                <li>
-                    {{ collaborateur.artist.firstname }}
-                    {{ collaborateur.artist.lastname }}
-                    ({{ collaborateur.type.type }})
-                </li>              
-            {% endfor %}
-        </ul>
-
+        <p><strong>Auteur:</strong>
+        {% for auteur in collaborateurs['auteur'] %}
+            {{ auteur.firstname }} 
+            {{ auteur.lastname }}{% if loop.index == loop.length-1 %} et 
+            {% elseif not loop.last %}, {% endif %}
+        {% endfor %}
+        </p>
+        <p><strong>Metteur en scène:</strong>
+        {% for scenographe in collaborateurs['scénographe'] %}
+            {{ scenographe.firstname }} 
+            {{ scenographe.lastname }}{% if loop.index == loop.length-1 %} et 
+            {% elseif not loop.last %}, {% endif %}
+        {% endfor %}
+        </p>
+        <p><strong>Distribution:</strong>
+        {% for comedien in collaborateurs['comédien'] %}
+            {{ comedien.firstname }} 
+            {{ comedien.lastname }}{% if loop.index == loop.length-1 %} et 
+            {% elseif not loop.last %}, {% endif %}
+        {% endfor %}
+        </p>
 {% endblock %}
+
