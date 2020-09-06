@@ -2,20 +2,20 @@
 
 namespace App\Entity;
 
-use App\Repository\ArtistRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\ArtistType;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity(repositoryClass=ArtistRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\ArtistRepository")
  * @ORM\Table(name="artists")
  */
 class Artist
 {
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -31,7 +31,7 @@ class Artist
     private $lastname;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Type::class, inversedBy="artists")
+     * @ORM\OneToMany(targetEntity="App\Entity\ArtistType", mappedBy="artist", orphanRemoval=true)
      */
     private $types;
 
@@ -39,6 +39,7 @@ class Artist
     {
         $this->types = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -70,28 +71,34 @@ class Artist
     }
 
     /**
-     * @return Collection|Type[]
+     * @return Collection|ArtistType[]
      */
     public function getTypes(): Collection
     {
         return $this->types;
     }
 
-    public function addType(Type $type): self
+    public function addType(ArtistType $type): self
     {
         if (!$this->types->contains($type)) {
             $this->types[] = $type;
+            $type->setArtist($this);
         }
 
         return $this;
     }
 
-    public function removeType(Type $type): self
+    public function removeType(ArtistType $type): self
     {
         if ($this->types->contains($type)) {
             $this->types->removeElement($type);
+            // set the owning side to null (unless already changed)
+            if ($type->getArtist() === $this) {
+                $type->setArtist(null);
+            }
         }
 
         return $this;
     }
+
 }
