@@ -4,7 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Reservation;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use App\DataFixtures\RepresentationFixtures;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
 use App\Repository\ReservationRepository;
 
 /**
@@ -18,11 +19,7 @@ class Reservation
      */
     private $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reservations")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user;
+    
 
     /**
      * @ORM\ManyToOne(targetEntity=Representation::class, inversedBy="reservations")
@@ -35,22 +32,18 @@ class Reservation
      */
     private $places;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reservations")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
+    
 
     public function getRepresentation(): ?Representation
     {
@@ -72,6 +65,18 @@ class Reservation
     public function setPlaces(int $places): self
     {
         $this->places = $places;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
