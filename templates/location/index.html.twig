@@ -5,9 +5,9 @@
 {% block body %}
     <h1>Liste des {{ resource }}</h1>
 
-    <ul>
+    <ul class="list-group">
     {% for location in locations %}
-        <li>{{ location.designation }}
+        <li class="list-group-item">{{ location.designation }}
             {% if location.website %}
             - <a href="">{{ location.website }}</a>
             {% endif %}

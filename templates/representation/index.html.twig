@@ -5,9 +5,9 @@
 {% block body %}
     <h1>Liste des {{ resource }}</h1>
 
-    <ul>
+    <ul class="list-group">
     {% for representation in representations %}
-        <li>{{ representation.theShow.title }}
+        <li class="list-group-item">{{ representation.theShow.title }}
             {% if representation.theLocation %}
             - <span>{{ representation.theLocation.designation }}</span>
             {% endif %}

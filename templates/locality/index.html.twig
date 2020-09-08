@@ -6,9 +6,9 @@
 
 <h1>Liste des {{ressource}}</h1>
 
-<ul>
+<ul class="list-group">
 {% for locality in localities %}
-    <li>{{ locality.locality }}</li>
+    <li class="list-group-item">{{ locality.locality }}</li>
 {% endfor %}
 </ul>
 

@@ -5,9 +5,9 @@
 {% block body %}
     <h1>Liste des {{ resource }}</h1>
 
-    <ul>
+    <ul class="list-group">
     {% for show in shows %}
-        <li>{{ show.title }}
+        <li class="list-group-item">{{ show.title }}
             {% if show.bookable %}
             <span>{{ show.price }} €</span>
             {% endif %}

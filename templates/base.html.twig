@@ -39,6 +39,8 @@
                     {% if not app.user %}
                     <li class="nav navbar-nav navbar-right" style="left:0px">
                         <a class="nav-link" href="{{ path('security_login')}}">Connexion</a>
+                    </li><li class="nav navbar-nav navbar-right" style="left:0px">
+                        <a class="nav-link" href="{{ path('security_registration')}}">Inscription</a>
                     </li>
                     {% else %}
 
